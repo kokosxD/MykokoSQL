@@ -1,0 +1,20 @@
+# Visual studio
+.vs/
+x64/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.vscode
+
+# Test
+Notes/
+src/main.cpp
+test*
+
+# Build
+Build/
+Objects/
+Debug/
+Release/
+CMake/
