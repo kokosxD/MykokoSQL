@@ -13,7 +13,9 @@ src/main.cpp
 test*
 
 # Build
-Build/
+*.exe
+*.ilk
+*.pdb
 Objects/
 Debug/
 Release/
