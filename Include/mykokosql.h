@@ -15,13 +15,27 @@ public:
 
 	~MykokoSQL() noexcept;
 
-	// Returns true if MySQL is initialized
+	/**
+	* // Initializes MySQL
+	* @return True if MySQL is initialized
+	*/
 	const bool Init() noexcept;
 
-	// Closes the current connection
+	/**
+	* // Closes the current connection
+	* @return None
+	*/
 	void Close() noexcept;
 
-	// Returns true if a connection to the requested MySQL server is established
+	/**
+	* // Connects with the requested MySQL server
+	* @param _host Host name or IP address to connect with
+	* @param _user User name
+	* @param _password User password
+	* @param _db Database name
+	* @param _port Port to use for the connection (default is 0)
+	* @return True if the connection to the requested MySQL server is established
+	*/
 	const bool Connect(
 		const char* const _host,
 		const char* const _user,
