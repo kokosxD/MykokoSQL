@@ -9,7 +9,7 @@ MykokoSQL::~MykokoSQL() noexcept{
 }
 
 const bool MykokoSQL::Init() noexcept{
-	if(m_db){
+	if(! m_db){
 		m_db = mysql_init(nullptr);
 	}
 
