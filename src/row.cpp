@@ -36,7 +36,7 @@ const MykokoSQL::Column MykokoSQL::Row::operator[](const char* const _col_name) 
 			if(m_res->m_mysql_res->fields){
 				const unsigned int col_name_len = static_cast<unsigned int>(strlen(_col_name));
 				for(unsigned int col_indx = 0; col_indx < m_res->m_mysql_res->field_count; col_indx++){
-					if(m_res->m_mysql_res->fields[col_indx].length == col_name_len){
+					if(m_res->m_mysql_res->fields[col_indx].name_length == col_name_len){
 						for(unsigned int character = 0; character < col_name_len; character++){
 							if(! __CaseInsensitiveComparison(m_res->m_mysql_res->fields[col_indx].name[character], _col_name[character])){
 								goto next_column;
