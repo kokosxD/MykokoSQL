@@ -49,13 +49,19 @@ const bool MykokoSQL::Connect(
 }
 
 const MykokoSQL::Result MykokoSQL::Execute(const char* const _query) noexcept{
-	return Execute(_query, static_cast<unsigned int>(strlen(_query)));
+	if(_query){
+		return Execute(_query, static_cast<unsigned int>(strlen(_query)));
+	}
+
+	return Result();
 }
 
 const MykokoSQL::Result MykokoSQL::Execute(const char* const _query, const unsigned int& _len) noexcept{
 	if(m_db){
-		if(! mysql_real_query(m_db, _query, _len)){
-			return Result(mysql_store_result(m_db));
+		if(_query){
+			if(! mysql_real_query(m_db, _query, _len)){
+				return Result(mysql_store_result(m_db));
+			}
 		}
 	}
 
