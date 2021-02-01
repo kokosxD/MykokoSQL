@@ -41,7 +41,7 @@ MykokoSQL::Column::Column(const Row* const _row, const unsigned int& _col_indx) 
 	}
 }
 
-MykokoSQL::Column::Column() noexcept{}
+MykokoSQL::Column::Column() noexcept : m_bytes(""){}
 
 const unsigned int MykokoSQL::Column::GetIndex() const noexcept{
 	return m_indx;
