@@ -8,6 +8,17 @@ MykokoSQL::~MykokoSQL() noexcept{
 	Close();
 }
 
+const bool MykokoSQL::__CaseInsensitiveComparison(const char& _ch1, const char& _ch2) noexcept{
+	if(_ch1 == _ch2){
+		return true;
+	}
+	else if(isalpha(_ch1) && isalpha(_ch2)){
+		return abs(_ch1 - _ch2) == 0 || abs(_ch1 - _ch2) == 32;
+	}
+
+	return false;
+}
+
 const bool MykokoSQL::Init() noexcept{
 	if(! m_db){
 		m_db = mysql_init(nullptr);
@@ -31,4 +42,16 @@ const bool MykokoSQL::Connect(
 	const unsigned int& _port
 ) noexcept{
 	return mysql_real_connect(m_db, _host, _user, _password, _db, _port, nullptr, 0);
+}
+
+const MykokoSQL::Result MykokoSQL::Execute(const char* const _query) noexcept{
+	return Execute(_query, static_cast<unsigned int>(strlen(_query)));
+}
+
+const MykokoSQL::Result MykokoSQL::Execute(const char* const _query, const unsigned int& _len) noexcept{
+	if(! mysql_real_query(m_db, _query, _len)){
+		return Result(mysql_store_result(m_db));
+	}
+
+	return Result();
 }
