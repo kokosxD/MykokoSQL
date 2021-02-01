@@ -61,3 +61,19 @@ const MykokoSQL::Result MykokoSQL::Execute(const char* const _query, const unsig
 
 	return Result();
 }
+
+const unsigned int MykokoSQL::GetLastErrorCode() const noexcept{
+	if(m_db){
+		return mysql_errno(m_db);
+	}
+
+	return 0;
+}
+
+const char* const MykokoSQL::GetLastErrorMessage() const noexcept{
+	if(m_db){
+		return mysql_error(m_db);
+	}
+
+	return "";
+}

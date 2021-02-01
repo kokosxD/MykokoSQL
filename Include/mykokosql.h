@@ -205,4 +205,14 @@ public:
 	* @return True if the given query was successfully executed
 	*/
 	const Result Execute(const char* const _query, const unsigned int& _len) noexcept;
+
+	/**
+	* @return The last MySQL error code
+	*/
+	const unsigned int GetLastErrorCode() const noexcept;
+
+	/**
+	* @return The last MySQL error message
+	*/
+	const char* const GetLastErrorMessage() const noexcept;
 };
