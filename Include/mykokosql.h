@@ -6,7 +6,7 @@
 // Usually located in "C:\Program Files\MySQL\MySQL Server 8.0\lib"
 #pragma comment(lib, "libmysql.lib")
 
-// Class used to represent a connection to a MySQL database
+// Class used to represent a MySQL connection
 class MykokoSQL final{
 private:
 
@@ -19,8 +19,12 @@ private:
 	static const bool __CaseInsensitiveComparison(const char& _ch1, const char& _ch2) noexcept;
 public:
 
-	// Class used to represent a MySQL column
+	// Classes forward declarations
+	class Column;
 	class Row;
+	class Result;
+
+	// Class used to represent a MySQL column
 	class Column final{
 	private:
 		friend class Row;
@@ -75,7 +79,6 @@ public:
 	};
 
 	// Class used to represent a MySQL row
-	class Result;
 	class Row final{
 	private:
 		friend class Column;
