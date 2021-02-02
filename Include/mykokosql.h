@@ -20,9 +20,312 @@ private:
 public:
 
 	// Classes forward declarations
+	class Field;
 	class Column;
 	class Row;
 	class Result;
+
+	// Class used to represent a MySQL field
+	class Field final{
+	public:
+
+		// Enumerator used to represent a MySQL field type
+		enum class Type : unsigned short{
+
+			// Invalid MySQL field type
+			Invalid = 0x0000,
+
+			// TINYINT
+			TinyInt = 0x0001,
+
+			// SMALLINT
+			SmallInt = 0x0002,
+
+			// LONG
+			Long = 0x0003,
+
+			// FLOAT
+			Float = 0x0004,
+
+			// DOUBLE
+			Double = 0x0005,
+
+			// NULL
+			Null = 0x0006,
+
+			// TIMESTAMP
+			TimeStamp = 0x0007,
+
+			// BIGINT
+			BigInt = 0x0008,
+
+			// MEDIUMINT
+			MediumInt = 0x0009,
+
+			// DATE
+			Date = 0x000A,
+
+			// TIME
+			Time = 0x000B,
+
+			// DATETIME
+			DateTime = 0x000C,
+
+			// YEAR
+			Year = 0x000D,
+
+			// VARCHAR
+			VarChar = 0x000F,
+
+			// BIT
+			Bit = 0x0010,
+
+			// JSON
+			JSON = 0x00F5,
+
+			// DECIMAL
+			Decimal = 0x00F6,
+
+			// ENUM
+			Enum = 0x00F7,
+
+			// SET
+			Set = 0x00F8,
+
+			// TINYBLOB
+			TinyBlob = 0x00F9,
+
+			// MEDIUMBLOB
+			MediumBlob = 0x00FA,
+
+			// LONGBLOB
+			LongBlob = 0x00FB,
+			
+			// BLOB
+			Blob = 0x00FC,
+
+			// VARCHAR
+			VarString = 0x00FD,
+
+			// STRING
+			String = 0x00FE,
+
+			// GEOMETRY
+			Geometry = 0x00FF
+		};
+
+		// Enumerator used to represent a MySQL character set
+		enum class CharacterSet : unsigned short{
+
+			// Invalid MySQL character set
+			Invalid = 0x0000,
+
+			// Big5 Traditional Chinese
+			Big5 = 0x0001,
+
+			// DEC West European
+			DEC8 = 0x0003,
+
+			// DOS West European
+			CP850 = 0x0004,
+
+			// HP West European
+			HP8 = 0x0006,
+
+			// KOI8-R Relcom Russian
+			KOI8R = 0x0007,
+
+			// CP1252 West European
+			Latin1 = 0x0008,
+
+			// ISO 8859-2 Central European
+			Latin2 = 0x0009,
+
+			// 7bit Swedish
+			Swe7 = 0x000A,
+
+			// US ASCII
+			ASCII = 0x000B,
+
+			// EUC-JP Japanese
+			UJIS = 0x000C,
+
+			// Shift-JIS Japanese
+			SJIS = 0x000D,
+
+			// ISO 8859-8 Hebrew
+			Hebrew = 0x0010,
+
+			// TIS620 Thai
+			TIS620 = 0x0012,
+
+			// EUC-KR Korean
+			EUCKR = 0x0013,
+
+			// KOI8-U Ukrainian
+			KOI8U = 0x0016,
+
+			// GB2312 Simplified Chinese
+			GB2312 = 0x0018,
+
+			// ISO 8859-7 Greek
+			Greek = 0x0019,
+
+			// Windows Central European
+			CP1250 = 0x001A,
+
+			// GBK Simplified Chinese
+			GBK = 0x001C,
+
+			// ISO 8859-9 Turkish
+			Latin5 = 0x001E,
+
+			// ARMSCII-8 Armenian
+			ArmSCII8 = 0x0020,
+
+			// UTF-8 Unicode
+			UTF8 = 0x0021,
+
+			// UCS-2 Unicode
+			UCS2 = 0x0023,
+
+			// DOS Russian
+			CP866 = 0x0024,
+
+			// DOS Kamenicky Czech-Slovak
+			KEYBCS2 = 0x0025,
+
+			// Mac Central European
+			MacCE = 0x0026,
+
+			// Mac West European
+			Macroman = 0x0027,
+
+			// DOS Central European
+			CP852 = 0x0028,
+
+			// ISO 8859-13 Baltic
+			Latin7 = 0x0029,
+
+			// Windows Cyrillic
+			CP1251 = 0x0033,
+
+			// UTF-16 Unicode
+			UTF16 = 0x0036,
+
+			// UTF-16LE Unicode
+			UTF16LE = 0x0038,
+
+			// Windows Arabic
+			CP1256 = 0x0039,
+
+			// Windows Baltic
+			CP1257 = 0x003B,
+
+			// UTF-32 Unicode
+			UTF32 = 0x003C,
+
+			// Binary pseudo charset
+			Binary = 0x003F,
+
+			// GEOSTD8 Georgian
+			GEOSTD8 = 0x005C,
+
+			// SJIS for Windows Japanese
+			CP932 = 0x005F,
+
+			// UJIS for Windows Japanese
+			EUCJPMS = 0x0061,
+
+			// China National Standard GB18030
+			GB18030 = 0x00F8,
+
+			// UTF-8 Unicode
+			UTF8MB4 = 0x00FF
+		};
+	private:
+		friend class Column;
+		friend class Result;
+
+		// Accessible from MykokoSQL::Column and MykokoSQL
+		Field(const Result* const _res, const unsigned int& _field_indx) noexcept;
+
+		// Accessible from MykokoSQL::Column and MykokoSQL
+		Field() noexcept;
+
+		const unsigned int m_indx = 0;
+		Type m_type = Type::Invalid;
+		const char* m_name = nullptr;
+		unsigned int m_len = 0;
+		const char* m_table_name = nullptr;
+		unsigned int m_table_name_len = 0;
+		const char* m_db_name = nullptr;
+		unsigned int m_db_name_len = 0;
+		CharacterSet m_char_set = CharacterSet::Invalid;
+	public:
+
+		/**
+		* @param _type The field type of which to return its string representation
+		* @return The string representation of the given field type
+		*/
+		static const char* const TypeToString(const Type& _type) noexcept;
+
+		/**
+		* @param _char_set The character set of which to return its collation
+		* @return The collation of the given character set
+		*/
+		static const char* const GetCharacterSetCollation(const CharacterSet& _char_set) noexcept;
+
+		/**
+		* @return The index of the current field
+		*/
+		const unsigned int GetIndex() const noexcept;
+
+		/**
+		* @return The type of the current field
+		*/
+		const Type GetType() const noexcept;
+
+		/**
+		* @return The field
+		*/
+		const char* const Get() const noexcept;
+
+		/**
+		* @return The length of the current field
+		*/
+		const unsigned int Length() const noexcept;
+
+		/**
+		* @return The table name on which the current field belongs to
+		*/
+		const char* const GetTableName() const noexcept;
+
+		/**
+		* @return The length of the table name on which the current field belongs to
+		*/
+		const unsigned int GetTableNameLength() const noexcept;
+
+		/**
+		* @return The database name on which the current field belongs to
+		*/
+		const char* const GetDatabaseName() const noexcept;
+
+		/**
+		* @return The length of the database name on which the current field belongs to
+		*/
+		const unsigned int GetDatabaseNameLength() const noexcept;
+
+		/**
+		* @return Character set the current field uses
+		*/
+		const CharacterSet GetCharacterSet() const noexcept;
+
+		/**
+		* @return True if the current field is valid
+		*/
+		operator const bool() const noexcept;
+	};
 
 	// Class used to represent a MySQL column
 	class Column final{
@@ -55,6 +358,11 @@ public:
 		* @return The length of the current column in bytes
 		*/
 		const unsigned int Length() const noexcept;
+
+		/**
+		* @return The field of the current column
+		*/
+		const Field GetField() const noexcept;
 
 		/**
 		* @return True if the current column is NULL

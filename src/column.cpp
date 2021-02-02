@@ -55,12 +55,24 @@ const unsigned int MykokoSQL::Column::Length() const noexcept{
 	return m_len;
 }
 
+const MykokoSQL::Field MykokoSQL::Column::GetField() const noexcept{
+	if(m_row){
+		if(m_row->m_res){
+			if(m_row->m_res->m_mysql_res){
+				return Field(m_row->m_res, m_indx);
+			}
+		}
+	}
+
+	return Field();
+}
+
 const bool MykokoSQL::Column::IsNull() const noexcept{
 	return m_bytes == "" && ! m_len;
 }
 
 const char MykokoSQL::Column::operator[](const unsigned int& _byte_indx) const noexcept{
-	if(_byte_indx <= Length()){
+	if(_byte_indx <= m_len){
 		if(m_bytes){
 			return m_bytes[_byte_indx];
 		}
