@@ -215,4 +215,9 @@ public:
 	* @return The last MySQL error message
 	*/
 	const char* const GetLastErrorMessage() const noexcept;
+
+	/**
+	* @return True if the current MySQL object is valid
+	*/
+	operator const bool() const noexcept;
 };

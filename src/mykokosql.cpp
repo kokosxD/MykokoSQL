@@ -83,3 +83,7 @@ const char* const MykokoSQL::GetLastErrorMessage() const noexcept{
 
 	return "";
 }
+
+MykokoSQL::operator const bool() const noexcept{
+	return m_db;
+}
