@@ -1,6 +1,6 @@
 #include "mykokosql.h"
 
-MykokoSQL::Column::Column(const Row* const _row, const unsigned int& _col_indx) noexcept : m_row(_row), m_indx(_col_indx){
+MykokoSQL::Column::Column(const Row* const _row, const unsigned short& _col_indx) noexcept : m_row(_row), m_indx(_col_indx){
 	if(_row){
 		if(_row->m_res){
 			if(_row->m_res->m_mysql_res){
@@ -27,7 +27,7 @@ MykokoSQL::Column::Column(const Row* const _row, const unsigned int& _col_indx) 
 							while(! last_row->data[next_non_null_col]){
 								next_non_null_col++;
 							}
-							m_len = static_cast<unsigned long int>(last_row->data[next_non_null_col] - last_row->data[m_indx] - 1);
+							m_len = static_cast<unsigned short>(last_row->data[next_non_null_col] - last_row->data[m_indx] - 1);
 						}
 
 						// NULL column
@@ -43,7 +43,7 @@ MykokoSQL::Column::Column(const Row* const _row, const unsigned int& _col_indx) 
 
 MykokoSQL::Column::Column() noexcept : m_bytes(""){}
 
-const unsigned int MykokoSQL::Column::GetIndex() const noexcept{
+const unsigned short MykokoSQL::Column::GetIndex() const noexcept{
 	return m_indx;
 }
 
@@ -51,7 +51,7 @@ const char* const MykokoSQL::Column::Get() const noexcept{
 	return m_bytes;
 }
 
-const unsigned int MykokoSQL::Column::Length() const noexcept{
+const unsigned short MykokoSQL::Column::Length() const noexcept{
 	return m_len;
 }
 
@@ -71,7 +71,7 @@ const bool MykokoSQL::Column::IsNull() const noexcept{
 	return m_bytes == "" && ! m_len;
 }
 
-const char MykokoSQL::Column::operator[](const unsigned int& _byte_indx) const noexcept{
+const unsigned char MykokoSQL::Column::operator[](const unsigned short& _byte_indx) const noexcept{
 	if(_byte_indx <= m_len){
 		if(m_bytes){
 			return m_bytes[_byte_indx];

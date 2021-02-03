@@ -248,19 +248,19 @@ public:
 		friend class Result;
 
 		// Accessible from MykokoSQL::Column and MykokoSQL
-		Field(const Result* const _res, const unsigned int& _field_indx) noexcept;
+		Field(const Result* const _res, const unsigned short& _field_indx) noexcept;
 
 		// Accessible from MykokoSQL::Column and MykokoSQL
 		Field() noexcept;
 
-		const unsigned int m_indx = 0;
+		const unsigned short m_indx = 0;
 		Type m_type = Type::Invalid;
 		const char* m_name = nullptr;
-		unsigned int m_len = 0;
+		unsigned short m_len = 0;
 		const char* m_table_name = nullptr;
-		unsigned int m_table_name_len = 0;
+		unsigned short m_table_name_len = 0;
 		const char* m_db_name = nullptr;
-		unsigned int m_db_name_len = 0;
+		unsigned short m_db_name_len = 0;
 		CharacterSet m_char_set = CharacterSet::Invalid;
 	public:
 
@@ -279,7 +279,7 @@ public:
 		/**
 		* @return The index of the current field
 		*/
-		const unsigned int GetIndex() const noexcept;
+		const unsigned short GetIndex() const noexcept;
 
 		/**
 		* @return The type of the current field
@@ -294,7 +294,7 @@ public:
 		/**
 		* @return The length of the current field
 		*/
-		const unsigned int Length() const noexcept;
+		const unsigned short Length() const noexcept;
 
 		/**
 		* @return The table name on which the current field belongs to
@@ -304,7 +304,7 @@ public:
 		/**
 		* @return The length of the table name on which the current field belongs to
 		*/
-		const unsigned int GetTableNameLength() const noexcept;
+		const unsigned short GetTableNameLength() const noexcept;
 
 		/**
 		* @return The database name on which the current field belongs to
@@ -314,7 +314,7 @@ public:
 		/**
 		* @return The length of the database name on which the current field belongs to
 		*/
-		const unsigned int GetDatabaseNameLength() const noexcept;
+		const unsigned short GetDatabaseNameLength() const noexcept;
 
 		/**
 		* @return Character set the current field uses
@@ -333,21 +333,21 @@ public:
 		friend class Row;
 
 		// Accessible from MykokoSQL::Row
-		Column(const Row* const _row, const unsigned int& _col_indx) noexcept;
+		Column(const Row* const _row, const unsigned short& _col_indx) noexcept;
 
 		// Accessible from MykokoSQL::Row
 		Column() noexcept;
 
 		const Row* const m_row = nullptr;
-		const unsigned int m_indx = 0;
+		const unsigned short m_indx = 0;
 		const char* m_bytes = nullptr;
-		unsigned int m_len = 0;
+		unsigned short m_len = 0;
 	public:
 
 		/**
 		* @return The index of the current column
 		*/
-		const unsigned int GetIndex() const noexcept;
+		const unsigned short GetIndex() const noexcept;
 
 		/**
 		* @return The column
@@ -357,7 +357,7 @@ public:
 		/**
 		* @return The length of the current column in bytes
 		*/
-		const unsigned int Length() const noexcept;
+		const unsigned short Length() const noexcept;
 
 		/**
 		* @return The field of the current column
@@ -373,7 +373,7 @@ public:
 		* @param _col_indx The index of the byte to return
 		* @return A byte from the current column
 		*/
-		const char operator[](const unsigned int& _byte_indx) const noexcept;
+		const unsigned char operator[](const unsigned short& _byte_indx) const noexcept;
 
 		/**
 		* @return The column
@@ -410,14 +410,14 @@ public:
 		/**
 		* @return The number of columns in the current row
 		*/
-		const unsigned int GetColumnCount() const noexcept;
+		const unsigned short GetColumnCount() const noexcept;
 
 		/**
 		* // Returns a fetched column
 		* @param _col_indx The index of the column to return
 		* @return The column with the given index
 		*/
-		const Column operator[](const unsigned int& _col_indx) const noexcept;
+		const Column operator[](const unsigned short& _col_indx) const noexcept;
 
 		/**
 		* // Returns a fetched column
@@ -625,7 +625,7 @@ public:
 		const char* const _user,
 		const char* const _password,
 		const char* const _db = nullptr,
-		const unsigned int& _port = 0
+		const unsigned short& _port = 0
 	) noexcept;
 
 	/**
@@ -641,12 +641,12 @@ public:
 	* @param _len Length of query
 	* @return True if the given query was successfully executed
 	*/
-	const Result Execute(const char* const _query, const unsigned int& _len) noexcept;
+	const Result Execute(const char* const _query, const unsigned long int& _len) noexcept;
 
 	/**
 	* @return The last MySQL error code
 	*/
-	const unsigned int GetLastErrorCode() const noexcept;
+	const unsigned short GetLastErrorCode() const noexcept;
 
 	/**
 	* @return The last MySQL error message

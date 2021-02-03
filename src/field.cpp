@@ -1,17 +1,17 @@
 #include "mykokosql.h"
 
-MykokoSQL::Field::Field(const Result* const _res, const unsigned int& _field_indx) noexcept : m_indx(_field_indx){
+MykokoSQL::Field::Field(const Result* const _res, const unsigned short& _field_indx) noexcept : m_indx(_field_indx){
 	if(_res){
 		if(_res->m_mysql_res){
 			if(_res->m_mysql_res->fields){
 				if(_field_indx < _res->m_mysql_res->field_count){
 					m_type = static_cast<Type>(_res->m_mysql_res->fields[_field_indx].type);
 					m_name = _res->m_mysql_res->fields[_field_indx].name;
-					m_len = _res->m_mysql_res->fields[_field_indx].name_length;
+					m_len = static_cast<unsigned short>(_res->m_mysql_res->fields[_field_indx].name_length);
 					m_table_name = _res->m_mysql_res->fields[_field_indx].table;
-					m_table_name_len = _res->m_mysql_res->fields[_field_indx].table_length;
+					m_table_name_len = static_cast<unsigned short>(_res->m_mysql_res->fields[_field_indx].table_length);
 					m_db_name = _res->m_mysql_res->fields[_field_indx].db;
-					m_db_name_len = _res->m_mysql_res->fields[_field_indx].db_length;
+					m_db_name_len = static_cast<unsigned short>(_res->m_mysql_res->fields[_field_indx].db_length);
 					m_char_set = static_cast<CharacterSet>(_res->m_mysql_res->fields[_field_indx].charsetnr);
 					return;
 				}
@@ -320,7 +320,7 @@ const char* const MykokoSQL::Field::GetCharacterSetCollation(const CharacterSet&
 	}
 }
 
-const unsigned int MykokoSQL::Field::GetIndex() const noexcept{
+const unsigned short MykokoSQL::Field::GetIndex() const noexcept{
 	return m_indx;
 }
 
@@ -332,7 +332,7 @@ const char* const MykokoSQL::Field::Get() const noexcept{
 	return m_name;
 }
 
-const unsigned int MykokoSQL::Field::Length() const noexcept{
+const unsigned short MykokoSQL::Field::Length() const noexcept{
 	return m_len;
 }
 
@@ -340,7 +340,7 @@ const char* const MykokoSQL::Field::GetTableName() const noexcept{
 	return m_table_name;
 }
 
-const unsigned int MykokoSQL::Field::GetTableNameLength() const noexcept{
+const unsigned short MykokoSQL::Field::GetTableNameLength() const noexcept{
 	return m_table_name_len;
 }
 
@@ -348,7 +348,7 @@ const char* const MykokoSQL::Field::GetDatabaseName() const noexcept{
 	return m_db_name;
 }
 
-const unsigned int MykokoSQL::Field::GetDatabaseNameLength() const noexcept{
+const unsigned short MykokoSQL::Field::GetDatabaseNameLength() const noexcept{
 	return m_db_name_len;
 }
 

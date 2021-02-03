@@ -8,7 +8,7 @@ const unsigned long long int MykokoSQL::Row::GetIndex() const noexcept{
 	return m_indx;
 }
 
-const unsigned int MykokoSQL::Row::GetColumnCount() const noexcept{
+const unsigned short MykokoSQL::Row::GetColumnCount() const noexcept{
 	if(m_res){
 		if(m_res->m_mysql_res){
 			return m_res->m_mysql_res->field_count;
@@ -18,7 +18,7 @@ const unsigned int MykokoSQL::Row::GetColumnCount() const noexcept{
 	return 0;
 }
 
-const MykokoSQL::Column MykokoSQL::Row::operator[](const unsigned int& _col_indx) const noexcept{
+const MykokoSQL::Column MykokoSQL::Row::operator[](const unsigned short& _col_indx) const noexcept{
 	if(m_res){
 		if(m_res->m_mysql_res){
 			if(_col_indx < m_res->m_mysql_res->field_count){
