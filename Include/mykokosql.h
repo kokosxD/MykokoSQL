@@ -427,6 +427,120 @@ public:
 		const Column operator[](const char* const _col_name) const noexcept;
 
 		/**
+		* @return True if the current row is not valid
+		*/
+		const bool operator!() const noexcept;
+
+		/**
+		* @param _other Row to compare it with the current one
+		* @return True if the current row is equal to the given one
+		*/
+		const bool operator==(const Row& _other) const noexcept;
+
+		/**
+		* @note Used in range-based for loops
+		* @param _other Row to compare it with the current one
+		* @return True if the current row is not equal to the given one
+		*/
+		const bool operator!=(const Row& _other) const noexcept;
+
+		/**
+		* @remarks Returns false if the current row belongs to a different result than the given one
+		* @param _other Row to compare it with the current one
+		* @return True if the current row is before the given one
+		*/
+		const bool operator<(const Row& _other) const noexcept;
+
+		/**
+		* @remarks Returns false if the current row belongs to a different result than the given one
+		* @param _other Row to compare it with the current one
+		* @return True if the current row is before or equal to the given one
+		*/
+		const bool operator<=(const Row& _other) const noexcept;
+
+		/**
+		* @remarks Returns false if the current row belongs to a different result than the given one
+		* @param _other Row to compare it with the current one
+		* @return True if the current row is after the given one
+		*/
+		const bool operator>(const Row& _other) const noexcept;
+
+		/**
+		* @remarks Returns false if the current row belongs to a different result than the given one
+		* @param _other Row to compare it with the current one
+		* @return True if the current row is after or equal to the given one
+		*/
+		const bool operator>=(const Row& _other) const noexcept;
+
+		/**
+		* @note Used in range-based for loops
+		* @return The current row
+		*/
+		const Row& operator*() const noexcept;
+
+		/**
+		* // Returns a row that is as many rows provided, rows after the current one
+		* @remarks Returns an invalid row if there are less than as many rows provided, rows after the current one
+		* @param _row_indx The number of rows after the current one
+		* @return The row that is as many rows provided, rows after the current one
+		*/
+		const Row operator+(const unsigned long long int& _row_indx) const noexcept;
+		
+		/**
+		* // Sets the current row to the next one
+		* @remarks Returns an invalid row if the current row in the last one
+		* @note Used in range-based for loops
+		* @return The current row
+		*/
+		const Row& operator++() noexcept;
+
+		/**
+		* // Sets the current row to the next one
+		* @remarks Returns an invalid row if the current row in the last one
+		* @return The current row
+		*/
+		const Row& operator++(int) noexcept;
+
+		/**
+		* // Sets the current row to the row that is as many rows provided, rows after the current row
+		* @remarks Returns an invalid row if there are less than as many rows provided, rows after the current one
+		* @param _row_indx The number of rows after the current one
+		* @return The current row
+		*/
+		const MykokoSQL::Row& operator+=(const unsigned long long int& _row_indx) noexcept;
+
+		/**
+		* // Returns a row that is as many rows provided, rows before the current one
+		* @remarks Returns an invalid row if there are less than as many rows provided, rows before the current one
+		* @param _row_indx The number of rows before the current one
+		* @return The row that is as many rows provided, rows before the current one
+		*/
+		const Row operator-(const unsigned long long int& _row_indx) const noexcept;
+
+		/**
+		* // Sets the current row to the previous one
+		* @remarks Returns an invalid row if the current row in the first one
+		* @note Used in range-based for loops
+		* @return The current row
+		*/
+		const Row& operator--() noexcept;
+
+		/**
+		* // Sets the current row to the previous one
+		* @remarks Returns an invalid row if the current row in the first one
+		* @return The current row
+		*/
+		const Row& operator--(int) noexcept;
+
+		/**
+		* // Sets the current row to the row that is as many rows provided, rows before the current row
+		* @remarks Returns an invalid row if there are less than as many rows provided, rows before the current one
+		* @param _row_indx The number of rows before the current one
+		* @return The current row
+		*/
+		const MykokoSQL::Row& operator-=(const unsigned long long int& _row_indx) noexcept;
+
+		/**
 		* @return True if the current row is valid
 		*/
 		operator const bool() const noexcept;
@@ -448,6 +562,18 @@ public:
 		MYSQL_RES* m_mysql_res = nullptr;
 	public:
 		~Result() noexcept;
+
+		/**
+		* @note Used in range-based for loops
+		* @return The first row in the current result
+		*/
+		const Row begin() const noexcept;
+
+		/**
+		* @note Used in range-based for loops
+		* @return An invalid row
+		*/
+		const Row end() const noexcept;
 
 		/**
 		* @return The number of rows in the current result

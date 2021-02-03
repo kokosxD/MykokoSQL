@@ -11,6 +11,14 @@ MykokoSQL::Result::~Result() noexcept{
 	}
 }
 
+const MykokoSQL::Row MykokoSQL::Result::begin() const noexcept{
+	return Row(this, 0);
+}
+
+const MykokoSQL::Row MykokoSQL::Result::end() const noexcept{
+	return Row();
+}
+
 const unsigned long long int MykokoSQL::Result::GetRowCount() const noexcept{
 	if(m_mysql_res){
 		return m_mysql_res->row_count;

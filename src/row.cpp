@@ -55,6 +55,102 @@ const MykokoSQL::Column MykokoSQL::Row::operator[](const char* const _col_name) 
 	return Column();
 }
 
+const bool MykokoSQL::Row::operator!() const noexcept{
+	return ! m_res;
+}
+
+const bool MykokoSQL::Row::operator==(const Row& _other) const noexcept{
+	return m_res == _other.m_res && m_indx == _other.m_indx;
+}
+
+const bool MykokoSQL::Row::operator!=(const Row& _other) const noexcept{
+	return ! operator==(_other);
+}
+
+const bool MykokoSQL::Row::operator<(const Row& _other) const noexcept{
+	if(m_res == _other.m_res){
+		return m_indx < _other.m_indx;
+	}
+
+	return false;
+}
+
+const bool MykokoSQL::Row::operator<=(const Row& _other) const noexcept{
+	return operator<(_other) || operator==(_other);
+}
+
+const bool MykokoSQL::Row::operator>(const Row& _other) const noexcept{
+	if(m_res == _other.m_res){
+		return m_indx > _other.m_indx;
+	}
+
+	return false;
+}
+
+const bool MykokoSQL::Row::operator>=(const Row& _other) const noexcept{
+	return operator>(_other) || operator==(_other);
+}
+
+const MykokoSQL::Row& MykokoSQL::Row::operator*() const noexcept{
+	return *this;
+}
+
+const MykokoSQL::Row MykokoSQL::Row::operator+(const unsigned long long int& _row_indx) const noexcept{
+	Row next_row = *this;
+	next_row += _row_indx;
+	return next_row;
+}
+
+const MykokoSQL::Row& MykokoSQL::Row::operator++() noexcept{
+	return operator+=(1);
+}
+
+const MykokoSQL::Row& MykokoSQL::Row::operator++(int) noexcept{
+	return operator++();
+}
+
+const MykokoSQL::Row& MykokoSQL::Row::operator+=(const unsigned long long int& _row_indx) noexcept{
+	if(m_res){
+		if(m_res->m_mysql_res){
+			if(m_indx + _row_indx < m_res->m_mysql_res->row_count){
+				return *this = Row(m_res, m_indx + _row_indx);
+			}
+			
+			return *this = Row();
+		}
+	}
+
+	return *this;
+}
+
+const MykokoSQL::Row MykokoSQL::Row::operator-(const unsigned long long int& _row_indx) const noexcept{
+	Row prev_row = *this;
+	prev_row -= _row_indx;
+	return prev_row;
+}
+
+const MykokoSQL::Row& MykokoSQL::Row::operator--() noexcept{
+	return operator-=(1);
+}
+
+const MykokoSQL::Row& MykokoSQL::Row::operator--(int) noexcept{
+	return operator--();
+}
+
+const MykokoSQL::Row& MykokoSQL::Row::operator-=(const unsigned long long int& _row_indx) noexcept{
+	if(m_res){
+		if(m_res->m_mysql_res){
+			if(m_indx >= _row_indx){
+				return *this = Row(m_res, m_indx - _row_indx);
+			}
+
+			return *this = Row();
+		}
+	}
+
+	return *this;
+}
+
 MykokoSQL::Row::operator const bool() const noexcept{
 	return m_res;
 }
