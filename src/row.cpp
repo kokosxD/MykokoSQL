@@ -1,10 +1,10 @@
 #include "mykokosql.h"
 
-MykokoSQL::Row::Row(const Result* const _res, const unsigned int& _row_indx) noexcept : m_res(_res), m_indx(_row_indx){}
+MykokoSQL::Row::Row(const Result* const _res, const unsigned long long int& _row_indx) noexcept : m_res(_res), m_indx(_row_indx){}
 
 MykokoSQL::Row::Row() noexcept{}
 
-const unsigned int MykokoSQL::Row::GetIndex() const noexcept{
+const unsigned long long int MykokoSQL::Row::GetIndex() const noexcept{
 	return m_indx;
 }
 

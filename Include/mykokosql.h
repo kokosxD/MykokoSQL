@@ -393,19 +393,19 @@ public:
 		friend class Result;
 
 		// Accessible from MykokoSQL::Result
-		Row(const Result* const _res, const unsigned int& _row_indx) noexcept;
+		Row(const Result* const _res, const unsigned long long int& _row_indx) noexcept;
 
 		// Accessible from MykokoSQL::Result
 		Row() noexcept;
 
 		const Result* m_res = nullptr;
-		const unsigned long int m_indx = 0;
+		unsigned long long int m_indx = 0;
 	public:
 
 		/**
 		* @return The index of the current row
 		*/
-		const unsigned int GetIndex() const noexcept;
+		const unsigned long long int GetIndex() const noexcept;
 
 		/**
 		* @return The number of columns in the current row
@@ -459,7 +459,7 @@ public:
 		* @param _row_indx The index of the row to return
 		* @return The row with the given index
 		*/
-		const Row operator[](const unsigned int& _row_indx) const noexcept;
+		const Row operator[](const unsigned long long int& _row_indx) const noexcept;
 
 		/**
 		* @return True if the current result is valid

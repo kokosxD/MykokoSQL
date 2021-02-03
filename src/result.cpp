@@ -19,7 +19,7 @@ const unsigned long long int MykokoSQL::Result::GetRowCount() const noexcept{
 	return 0;
 }
 
-const MykokoSQL::Row MykokoSQL::Result::operator[](const unsigned int& _row_indx) const noexcept{
+const MykokoSQL::Row MykokoSQL::Result::operator[](const unsigned long long int& _row_indx) const noexcept{
 	if(m_mysql_res){
 		if(_row_indx < m_mysql_res->row_count){
 			return Row(this, _row_indx);
