@@ -56,7 +56,7 @@ const MykokoSQL::Column MykokoSQL::Row::operator[](const char* const _col_name) 
 }
 
 const bool MykokoSQL::Row::operator!() const noexcept{
-	return ! m_res;
+	return ! operator const bool();
 }
 
 const bool MykokoSQL::Row::operator==(const Row& _other) const noexcept{
