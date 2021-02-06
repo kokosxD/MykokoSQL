@@ -1,10 +1,12 @@
 #include "mykokosql.h"
 
-MykokoSQL::Field::Field(const Result* const _res, const unsigned short& _field_indx) noexcept : m_indx(_field_indx){
+MykokoSQL::Field::Field(const Result* const _res, const unsigned short& _field_indx) noexcept{
 	if(_res){
 		if(_res->m_mysql_res){
 			if(_res->m_mysql_res->fields){
 				if(_field_indx < _res->m_mysql_res->field_count){
+					m_res = _res;
+					m_indx = _field_indx;
 					m_type = static_cast<Type>(_res->m_mysql_res->fields[_field_indx].type);
 					m_name = _res->m_mysql_res->fields[_field_indx].name;
 					m_len = static_cast<unsigned short>(_res->m_mysql_res->fields[_field_indx].name_length);

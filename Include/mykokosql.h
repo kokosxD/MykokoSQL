@@ -253,7 +253,8 @@ public:
 		// Accessible from MykokoSQL::Column and MykokoSQL
 		Field() noexcept;
 
-		const unsigned short m_indx = 0;
+		const Result* m_res = nullptr;
+		unsigned short m_indx = 0;
 		Type m_type = Type::Invalid;
 		const char* m_name = nullptr;
 		unsigned short m_len = 0;

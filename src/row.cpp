@@ -1,6 +1,15 @@
 #include "mykokosql.h"
 
-MykokoSQL::Row::Row(const Result* const _res, const unsigned long long int& _row_indx) noexcept : m_res(_res), m_indx(_row_indx){}
+MykokoSQL::Row::Row(const Result* const _res, const unsigned long long int& _row_indx) noexcept{
+	if(_res){
+		if(_res->m_mysql_res){
+			if(_row_indx < _res->m_mysql_res->row_count){
+				m_res = _res;
+				m_indx = _row_indx;
+			}
+		}
+	}
+}
 
 MykokoSQL::Row::Row() noexcept{}
 
@@ -97,8 +106,7 @@ const MykokoSQL::Row& MykokoSQL::Row::operator*() const noexcept{
 
 const MykokoSQL::Row MykokoSQL::Row::operator+(const unsigned long long int& _row_indx) const noexcept{
 	Row next_row = *this;
-	next_row += _row_indx;
-	return next_row;
+	return next_row += _row_indx;
 }
 
 const MykokoSQL::Row& MykokoSQL::Row::operator++() noexcept{
@@ -125,8 +133,7 @@ const MykokoSQL::Row& MykokoSQL::Row::operator+=(const unsigned long long int& _
 
 const MykokoSQL::Row MykokoSQL::Row::operator-(const unsigned long long int& _row_indx) const noexcept{
 	Row prev_row = *this;
-	prev_row -= _row_indx;
-	return prev_row;
+	return prev_row -= _row_indx;
 }
 
 const MykokoSQL::Row& MykokoSQL::Row::operator--() noexcept{
