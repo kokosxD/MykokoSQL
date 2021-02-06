@@ -1,6 +1,6 @@
 #include "mykokosql.h"
 
-MykokoSQL::Column::Column(const Row* const _row, const unsigned short& _col_indx) noexcept : m_row(_row), m_indx(_col_indx){
+MykokoSQL::Column::Column(const Row* const _row, const unsigned short& _col_indx) noexcept{
 	if(_row){
 		if(_row->m_res){
 			if(_row->m_res->m_mysql_res){
@@ -8,8 +8,8 @@ MykokoSQL::Column::Column(const Row* const _row, const unsigned short& _col_indx
 					if(_row->m_res->m_mysql_res->data->data){
 
 						// Get column row
-						MYSQL_ROWS* last_row = m_row->m_res->m_mysql_res->data->data;
-						for(unsigned int row_indx = 0; row_indx < m_row->m_indx; row_indx++){
+						MYSQL_ROWS* last_row = _row->m_res->m_mysql_res->data->data;
+						for(unsigned int row_indx = 0; row_indx < _row->m_indx; row_indx++){
 
 							// Expected row but no more rows are available
 							if(! last_row->next){
@@ -18,6 +18,8 @@ MykokoSQL::Column::Column(const Row* const _row, const unsigned short& _col_indx
 
 							last_row = last_row->next;
 						}
+						m_row = _row;
+						m_indx = _col_indx;
 
 						// Column is not NULL
 						if(m_bytes = last_row->data[m_indx]){
@@ -34,11 +36,15 @@ MykokoSQL::Column::Column(const Row* const _row, const unsigned short& _col_indx
 						else{
 							m_bytes = "";
 						}
+
+						return;
 					}
 				}
 			}
 		}
 	}
+
+	m_bytes = "";
 }
 
 MykokoSQL::Column::Column() noexcept : m_bytes(""){}
@@ -72,8 +78,8 @@ const bool MykokoSQL::Column::IsNull() const noexcept{
 }
 
 const unsigned char MykokoSQL::Column::operator[](const unsigned short& _byte_indx) const noexcept{
-	if(_byte_indx <= m_len){
-		if(m_bytes){
+	if(m_bytes){
+		if(_byte_indx <= m_len){
 			return m_bytes[_byte_indx];
 		}
 	}

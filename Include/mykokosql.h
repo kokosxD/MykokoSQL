@@ -338,8 +338,8 @@ public:
 		// Accessible from MykokoSQL::Row
 		Column() noexcept;
 
-		const Row* const m_row = nullptr;
-		const unsigned short m_indx = 0;
+		const Row* m_row = nullptr;
+		unsigned short m_indx = 0;
 		const char* m_bytes = nullptr;
 		unsigned short m_len = 0;
 	public:
