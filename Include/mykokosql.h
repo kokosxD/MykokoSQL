@@ -626,14 +626,14 @@ public:
 		const char* const _password,
 		const char* const _db = nullptr,
 		const unsigned short& _port = 0
-	) noexcept;
+	) const noexcept;
 
 	/**
 	* // Executes the given query
 	* @param _query Query to execute
 	* @return True if the given query was executed successfully
 	*/
-	const Result Execute(const char* const _query) noexcept;
+	const Result Execute(const char* const _query) const noexcept;
 
 	/**
 	* // Executes the given query
@@ -641,7 +641,7 @@ public:
 	* @param _len Length of query
 	* @return True if the given query was successfully executed
 	*/
-	const Result Execute(const char* const _query, const unsigned long int& _len) noexcept;
+	const Result Execute(const char* const _query, const unsigned long int& _len) const noexcept;
 
 	/**
 	* @return The last MySQL error code

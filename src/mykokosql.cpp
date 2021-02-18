@@ -40,7 +40,7 @@ const bool MykokoSQL::Connect(
 	const char* const _password,
 	const char* const _db,
 	const unsigned short& _port
-) noexcept{
+) const noexcept{
 	if(m_db){
 		return mysql_real_connect(m_db, _host, _user, _password, _db, _port, nullptr, 0);
 	}
@@ -48,7 +48,7 @@ const bool MykokoSQL::Connect(
 	return false;
 }
 
-const MykokoSQL::Result MykokoSQL::Execute(const char* const _query) noexcept{
+const MykokoSQL::Result MykokoSQL::Execute(const char* const _query) const noexcept{
 	if(_query){
 		return Execute(_query, static_cast<unsigned int>(strlen(_query)));
 	}
@@ -56,7 +56,7 @@ const MykokoSQL::Result MykokoSQL::Execute(const char* const _query) noexcept{
 	return Result();
 }
 
-const MykokoSQL::Result MykokoSQL::Execute(const char* const _query, const unsigned long int& _len) noexcept{
+const MykokoSQL::Result MykokoSQL::Execute(const char* const _query, const unsigned long int& _len) const noexcept{
 	if(m_db){
 		if(_query){
 			if(! mysql_real_query(m_db, _query, _len)){
