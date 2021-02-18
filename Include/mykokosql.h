@@ -433,6 +433,7 @@ public:
 		const bool operator!() const noexcept;
 
 		/**
+		* @remarks Returns false if the current row belongs to a different result than the given one
 		* @param _other Row to compare it with the current one
 		* @return True if the current row is equal to the given one
 		*/
@@ -440,6 +441,7 @@ public:
 
 		/**
 		* @note Used in range-based for loops
+		* @remarks Returns false if the current row belongs to a different result than the given one
 		* @param _other Row to compare it with the current one
 		* @return True if the current row is not equal to the given one
 		*/
