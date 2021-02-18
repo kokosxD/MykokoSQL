@@ -322,6 +322,14 @@ const char* const MykokoSQL::Field::GetCharacterSetCollation(const CharacterSet&
 	}
 }
 
+const MykokoSQL::Field MykokoSQL::Field::begin() const noexcept{
+	return Field(m_res, 0);
+}
+
+const MykokoSQL::Field MykokoSQL::Field::end() const noexcept{
+	return Field();
+}
+
 const unsigned short MykokoSQL::Field::GetIndex() const noexcept{
 	return m_indx;
 }
@@ -356,6 +364,116 @@ const unsigned short MykokoSQL::Field::GetDatabaseNameLength() const noexcept{
 
 const MykokoSQL::Field::CharacterSet MykokoSQL::Field::GetCharacterSet() const noexcept{
 	return m_char_set;
+}
+
+const bool MykokoSQL::Field::operator!() const noexcept{
+	return ! operator const bool();
+}
+
+const bool MykokoSQL::Field::operator==(const Field& _other) const noexcept{
+	return
+		m_res == _other.m_res &&
+		m_indx == _other.m_indx &&
+		m_type == _other.m_type &&
+		m_name == _other.m_name &&
+		m_table_name == _other.m_table_name &&
+		m_db_name == _other.m_db_name &&
+		m_char_set == _other.m_char_set
+	;
+}
+
+const bool MykokoSQL::Field::operator!=(const Field& _other) const noexcept{
+	return ! operator==(_other);
+}
+
+const bool MykokoSQL::Field::operator<(const Field& _other) const noexcept{
+	if(
+		m_res == _other.m_res &&
+		m_table_name == _other.m_table_name &&
+		m_db_name == _other.m_db_name &&
+		m_char_set == _other.m_char_set
+	){
+		return m_indx < _other.m_indx;
+	}
+
+	return false;
+}
+
+const bool MykokoSQL::Field::operator<=(const Field& _other) const noexcept{
+	return operator<(_other) || operator==(_other);
+}
+
+const bool MykokoSQL::Field::operator>(const Field& _other) const noexcept{
+	if(
+		m_res == _other.m_res &&
+		m_table_name == _other.m_table_name &&
+		m_db_name == _other.m_db_name &&
+		m_char_set == _other.m_char_set
+	){
+		return m_indx > _other.m_indx;
+	}
+
+	return false;
+}
+
+const bool MykokoSQL::Field::operator>=(const Field& _other) const noexcept{
+	return operator>(_other) || operator==(_other);
+}
+
+const MykokoSQL::Field& MykokoSQL::Field::operator*() const noexcept{
+	return *this;
+}
+
+const MykokoSQL::Field MykokoSQL::Field::operator+(const unsigned int& _field_indx) const noexcept{
+	Field next_field = *this;
+	return next_field += _field_indx;
+}
+
+const MykokoSQL::Field& MykokoSQL::Field::operator++() noexcept{
+	return operator+=(1);
+}
+
+const MykokoSQL::Field& MykokoSQL::Field::operator++(int) noexcept{
+	return operator++();
+}
+
+const MykokoSQL::Field& MykokoSQL::Field::operator+=(const unsigned int& _field_indx) noexcept{
+	if(m_res){
+		if(m_res->m_mysql_res){
+			if(m_indx + _field_indx < m_res->m_mysql_res->field_count){
+				return *this = Field(m_res, m_indx + _field_indx);
+			}
+		}
+
+		return *this = Field();
+	}
+
+	return *this;
+}
+
+const MykokoSQL::Field MykokoSQL::Field::operator-(const unsigned int& _field_indx) const noexcept{
+	Field prev_field = *this;
+	return prev_field -= _field_indx;
+}
+
+const MykokoSQL::Field& MykokoSQL::Field::operator--() noexcept{
+	return operator-=(1);
+}
+
+const MykokoSQL::Field& MykokoSQL::Field::operator--(int) noexcept{
+	return operator--();
+}
+
+const MykokoSQL::Field& MykokoSQL::Field::operator-=(const unsigned int& _field_indx) noexcept{
+	if(m_res){
+		if(m_indx >= _field_indx){
+			return *this = Field(m_res, m_indx - _field_indx);
+		}
+
+		return *this = Field();
+	}
+
+	return *this;
 }
 
 MykokoSQL::Field::operator const bool() const noexcept{

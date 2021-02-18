@@ -246,6 +246,7 @@ public:
 	private:
 		friend class Column;
 		friend class Result;
+		friend class MykokoSQL;
 
 		// Accessible from MykokoSQL::Column and MykokoSQL
 		Field(const Result* const _res, const unsigned short& _field_indx) noexcept;
@@ -276,6 +277,18 @@ public:
 		* @return The collation of the given character set
 		*/
 		static const char* const GetCharacterSetCollation(const CharacterSet& _char_set) noexcept;
+
+		/**
+		* @note Used in range-based for loops
+		* @return The first field in the result of the current field
+		*/
+		const Field begin() const noexcept;
+
+		/**
+		* @note Used in range-based for loops
+		* @return An invalid row
+		*/
+		const Field end() const noexcept;
 
 		/**
 		* @return The index of the current field
@@ -321,6 +334,121 @@ public:
 		* @return Character set the current field uses
 		*/
 		const CharacterSet GetCharacterSet() const noexcept;
+
+		/**
+		* @return True if the current field is not valid
+		*/
+		const bool operator!() const noexcept;
+
+		/**
+		* @remarks Returns false if the current field belongs to a different result than the given one
+		* @param _other Field to compare it with the current one
+		* @return True if the current field is equal to the given one
+		*/
+		const bool operator==(const Field& _other) const noexcept;
+
+		/**
+		* @note Used in range-based for loops
+		* @remarks Returns false if the current field belongs to a different result than the given one
+		* @param _other Field to compare it with the current one
+		* @return True if the current field is not equal to the given one
+		*/
+		const bool operator!=(const Field& _other) const noexcept;
+
+		/**
+		* @remarks Returns false if the current field belongs to a different result than the given one
+		* @param _other Field to compare it with the current one
+		* @return True if the current field is before the given one
+		*/
+		const bool operator<(const Field& _other) const noexcept;
+
+		/**
+		* @remarks Returns false if the current field belongs to a different result than the given one
+		* @param _other Field to compare it with the current one
+		* @return True if the current field is before or equal to the given one
+		*/
+		const bool operator<=(const Field& _other) const noexcept;
+
+		/**
+		* @remarks Returns false if the current field belongs to a different result than the given one
+		* @param _other Field to compare it with the current one
+		* @return True if the current field is after the given one
+		*/
+		const bool operator>(const Field& _other) const noexcept;
+
+		/**
+		* @remarks Returns false if the current field belongs to a different result than the given one
+		* @param _other Field to compare it with the current one
+		* @return True if the current field is after or equal to the given one
+		*/
+		const bool operator>=(const Field& _other) const noexcept;
+
+		/**
+		* @note Used in range-based for loops
+		* @return The current field
+		*/
+		const Field& operator*() const noexcept;
+
+		/**
+		* // Returns a field that is as many fields provided, fields after the current one
+		* @remarks Returns an invalid field if there are less than as many fields provided, fields after the current one
+		* @param _field_indx The number of fields after the current one
+		* @return The field that is as many fields provided, fields after the current one
+		*/
+		const Field operator+(const unsigned int& _field_indx) const noexcept;
+
+		/**
+		* // Sets the current field to the next one
+		* @remarks Returns an invalid field if the current field in the last one
+		* @note Used in range-based for loops
+		* @return The current field
+		*/
+		const Field& operator++() noexcept;
+
+		/**
+		* // Sets the current field to the next one
+		* @remarks Returns an invalid field if the current field in the last one
+		* @return The current field
+		*/
+		const Field& operator++(int) noexcept;
+
+		/**
+		* // Sets the current field to the field that is as many fields provided, fields after the current one
+		* @remarks Returns an invalid field if there are less than as many fields provided, fields after the current one
+		* @param _field_indx The number of fields after the current one
+		* @return The current field
+		*/
+		const MykokoSQL::Field& operator+=(const unsigned int& _field_indx) noexcept;
+
+		/**
+		* // Returns a field that is as many fields provided, fields before the current one
+		* @remarks Returns an invalid field if there are less than as many fields provided, fields before the current one
+		* @param _field_indx The number of fields before the current one
+		* @return The field that is as many fields provided, fields before the current one
+		*/
+		const Field operator-(const unsigned int& _field_indx) const noexcept;
+
+		/**
+		* // Sets the current field to the previous one
+		* @remarks Returns an invalid field if the current field in the first one
+		* @return The current field
+		*/
+		const Field& operator--() noexcept;
+
+		/**
+		* // Sets the current field to the previous one
+		* @remarks Returns an invalid field if the current field in the first one
+		* @return The current field
+		*/
+		const Field& operator--(int) noexcept;
+
+		/**
+		* // Sets the current field to the field that is as many fields provided, fields before the current one
+		* @remarks Returns an invalid field if there are less than as many fields provided, fields before the current one
+		* @param _field_indx The number of fields before the current one
+		* @return The current field
+		*/
+		const MykokoSQL::Field& operator-=(const unsigned int& _field_indx) noexcept;
 
 		/**
 		* @return True if the current field is valid
