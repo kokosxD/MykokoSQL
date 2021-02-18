@@ -477,5 +477,5 @@ const MykokoSQL::Field& MykokoSQL::Field::operator-=(const unsigned int& _field_
 }
 
 MykokoSQL::Field::operator const bool() const noexcept{
-	return m_type != Type::Invalid && m_name && m_len && m_table_name && m_table_name_len && m_db_name && m_db_name_len && m_char_set != CharacterSet::Invalid;
+	return m_res && m_type != Type::Invalid && m_name && m_len && m_char_set != CharacterSet::Invalid;
 }

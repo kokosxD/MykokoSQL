@@ -68,6 +68,23 @@ const MykokoSQL::Result MykokoSQL::Execute(const char* const _query, const unsig
 	return Result();
 }
 
+const MykokoSQL::Result MykokoSQL::GetFields(const char* const _table) const noexcept{
+	const unsigned int table_len = static_cast<unsigned int>(strnlen_s(_table, 256));
+	if(table_len != 256){
+		char GET_FIELDS_QUERY[18 + 256 + 1] = {
+			0x53, 0x48, 0x4f, 0x57, 0x20,
+			0x43, 0x4f, 0x4c, 0x55, 0x4d, 0x4e, 0x53, 0x20,
+			0x46, 0x52, 0x4f, 0x4d, 0x20
+		};
+		strncpy_s(&GET_FIELDS_QUERY[18], 256 + 1, _table, table_len);
+		strncpy_s(&GET_FIELDS_QUERY[18 + table_len], 256ull - table_len + 1, &static_cast<const char&>(0x3b), 1);
+
+		return Execute(GET_FIELDS_QUERY, 18 + table_len + 1);
+	}
+
+	return Result();
+}
+
 const unsigned short MykokoSQL::GetLastErrorCode() const noexcept{
 	if(m_db){
 		return mysql_errno(m_db);

@@ -774,6 +774,12 @@ public:
 	const Result Execute(const char* const _query, const unsigned long int& _len) const noexcept;
 
 	/**
+	* @param _table The table name of which to return its fields
+	* @return The result with the requested table fields
+	*/
+	const Result GetFields(const char* const _table) const noexcept;
+
+	/**
 	* @return The last MySQL error code
 	*/
 	const unsigned short GetLastErrorCode() const noexcept;
