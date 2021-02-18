@@ -711,6 +711,11 @@ public:
 		const unsigned long long int GetRowCount() const noexcept;
 
 		/**
+		* @return An Field object that can be used to iterate through all fields
+		*/
+		const Field GetFields() const noexcept;
+
+		/**
 		* // Returns a fetched row
 		* @param _row_indx The index of the row to return
 		* @return The row with the given index
