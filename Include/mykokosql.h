@@ -503,7 +503,7 @@ public:
 		const Row& operator++(int) noexcept;
 
 		/**
-		* // Sets the current row to the row that is as many rows provided, rows after the current row
+		* // Sets the current row to the row that is as many rows provided, rows after the current one
 		* @remarks Returns an invalid row if there are less than as many rows provided, rows after the current one
 		* @param _row_indx The number of rows after the current one
 		* @return The current row
@@ -521,7 +521,6 @@ public:
 		/**
 		* // Sets the current row to the previous one
 		* @remarks Returns an invalid row if the current row in the first one
-		* @note Used in range-based for loops
 		* @return The current row
 		*/
 		const Row& operator--() noexcept;
@@ -534,7 +533,7 @@ public:
 		const Row& operator--(int) noexcept;
 
 		/**
-		* // Sets the current row to the row that is as many rows provided, rows before the current row
+		* // Sets the current row to the row that is as many rows provided, rows before the current one
 		* @remarks Returns an invalid row if there are less than as many rows provided, rows before the current one
 		* @param _row_indx The number of rows before the current one
 		* @return The current row
