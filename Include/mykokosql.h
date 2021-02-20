@@ -689,7 +689,8 @@ public:
 		// Accessible from MykokoSQL
 		Result() noexcept;
 
-		MYSQL_RES* m_mysql_res = nullptr;
+		const bool m_is_valid = false;
+		MYSQL_RES* const m_mysql_res = nullptr;
 	public:
 		~Result() noexcept;
 
@@ -714,6 +715,11 @@ public:
 		* @return An Field object that can be used to iterate through all fields
 		*/
 		const Field GetFields() const noexcept;
+
+		/**
+		* @return True if the current result has feched data in it
+		*/
+		const bool HasData() const noexcept;
 
 		/**
 		* // Returns a fetched row
