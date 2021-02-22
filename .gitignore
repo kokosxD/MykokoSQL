@@ -23,5 +23,4 @@ Release/
 CMake/
 
 # Work in progress
-Include/my_client_errors.h
 Include/temp.h
