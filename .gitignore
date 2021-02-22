@@ -17,6 +17,7 @@ test*
 *.exe
 *.ilk
 *.pdb
+Build/MykokoSQL.lib
 Objects/
 Debug/
 Release/
