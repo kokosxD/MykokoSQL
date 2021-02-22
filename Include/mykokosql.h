@@ -729,6 +729,23 @@ public:
 		const Row operator[](const unsigned long long int& _row_indx) const noexcept;
 
 		/**
+		* @return True if the current result is not valid
+		*/
+		const bool operator!() const noexcept;
+
+		/**
+		* @param _other Result to compare it with the current one
+		* @return True if the current result is equal to the given one
+		*/
+		const bool operator==(const Result& _other) const noexcept;
+
+		/**
+		* @param _other Result to compare it with the current one
+		* @return True if the current result is not equal to the given one
+		*/
+		const bool operator!=(const Result& _other) const noexcept;
+
+		/**
 		* @return True if the current result is valid
 		*/
 		operator const bool() const noexcept;

@@ -48,6 +48,18 @@ const MykokoSQL::Row MykokoSQL::Result::operator[](const unsigned long long int&
 	return Row();
 }
 
+const bool MykokoSQL::Result::operator!() const noexcept{
+	return ! operator const bool();
+}
+
+const bool MykokoSQL::Result::operator==(const Result& _other) const noexcept{
+	return m_mysql_res == _other.m_mysql_res;
+}
+
+const bool MykokoSQL::Result::operator!=(const Result& _other) const noexcept{
+	return ! operator==(_other);
+}
+
 MykokoSQL::Result::operator const bool() const noexcept{
 	return m_is_valid;
 }
