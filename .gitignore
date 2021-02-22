@@ -24,4 +24,6 @@ Release/
 CMake/
 
 # Work in progress
+.github/
 Include/temp.h
+CMakeLists.txt
