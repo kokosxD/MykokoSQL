@@ -286,7 +286,7 @@ public:
 
 		/**
 		* @note Used in range-based for loops
-		* @return An invalid row
+		* @return An invalid field
 		*/
 		const Field end() const noexcept;
 
