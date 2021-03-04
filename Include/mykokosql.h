@@ -418,7 +418,7 @@ public:
 		* @param _field_indx The number of fields after the current one
 		* @return The current field
 		*/
-		const MykokoSQL::Field& operator+=(const unsigned int& _field_indx) noexcept;
+		const Field& operator+=(const unsigned int& _field_indx) noexcept;
 
 		/**
 		* // Returns a field that is as many fields provided, fields before the current one
@@ -448,7 +448,7 @@ public:
 		* @param _field_indx The number of fields before the current one
 		* @return The current field
 		*/
-		const MykokoSQL::Field& operator-=(const unsigned int& _field_indx) noexcept;
+		const Field& operator-=(const unsigned int& _field_indx) noexcept;
 
 		/**
 		* @return True if the current field is valid
@@ -638,7 +638,7 @@ public:
 		* @param _row_indx The number of rows after the current one
 		* @return The current row
 		*/
-		const MykokoSQL::Row& operator+=(const unsigned long long int& _row_indx) noexcept;
+		const Row& operator+=(const unsigned long long int& _row_indx) noexcept;
 
 		/**
 		* // Returns a row that is as many rows provided, rows before the current one
@@ -668,7 +668,7 @@ public:
 		* @param _row_indx The number of rows before the current one
 		* @return The current row
 		*/
-		const MykokoSQL::Row& operator-=(const unsigned long long int& _row_indx) noexcept;
+		const Row& operator-=(const unsigned long long int& _row_indx) noexcept;
 
 		/**
 		* @return True if the current row is valid
