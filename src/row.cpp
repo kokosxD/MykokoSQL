@@ -1,6 +1,6 @@
 #include "mykokosql.h"
 
-MykokoSQL::Row::Row(const Result* const _res, const unsigned long long int& _row_indx) noexcept{
+kokos::MykokoSQL::Row::Row(const Result* const _res, const unsigned long long int& _row_indx) noexcept{
 	if(_res){
 		if(_res->m_mysql_res){
 			if(_row_indx < _res->m_mysql_res->row_count){
@@ -11,13 +11,13 @@ MykokoSQL::Row::Row(const Result* const _res, const unsigned long long int& _row
 	}
 }
 
-MykokoSQL::Row::Row() noexcept{}
+kokos::MykokoSQL::Row::Row() noexcept{}
 
-const unsigned long long int MykokoSQL::Row::GetIndex() const noexcept{
+const unsigned long long int kokos::MykokoSQL::Row::GetIndex() const noexcept{
 	return m_indx;
 }
 
-const unsigned short MykokoSQL::Row::GetColumnCount() const noexcept{
+const unsigned short kokos::MykokoSQL::Row::GetColumnCount() const noexcept{
 	if(m_res){
 		if(m_res->m_mysql_res){
 			return m_res->m_mysql_res->field_count;
@@ -27,7 +27,7 @@ const unsigned short MykokoSQL::Row::GetColumnCount() const noexcept{
 	return 0;
 }
 
-const MykokoSQL::Column MykokoSQL::Row::operator[](const unsigned short& _col_indx) const noexcept{
+const kokos::MykokoSQL::Column kokos::MykokoSQL::Row::operator[](const unsigned short& _col_indx) const noexcept{
 	if(m_res){
 		if(m_res->m_mysql_res){
 			if(_col_indx < m_res->m_mysql_res->field_count){
@@ -39,7 +39,7 @@ const MykokoSQL::Column MykokoSQL::Row::operator[](const unsigned short& _col_in
 	return Column();
 }
 
-const MykokoSQL::Column MykokoSQL::Row::operator[](const char* const _col_name) const noexcept{
+const kokos::MykokoSQL::Column kokos::MykokoSQL::Row::operator[](const char* const _col_name) const noexcept{
 	if(m_res){
 		if(m_res->m_mysql_res){
 			if(m_res->m_mysql_res->fields){
@@ -64,19 +64,19 @@ const MykokoSQL::Column MykokoSQL::Row::operator[](const char* const _col_name) 
 	return Column();
 }
 
-const bool MykokoSQL::Row::operator!() const noexcept{
+const bool kokos::MykokoSQL::Row::operator!() const noexcept{
 	return ! operator const bool();
 }
 
-const bool MykokoSQL::Row::operator==(const Row& _other) const noexcept{
+const bool kokos::MykokoSQL::Row::operator==(const Row& _other) const noexcept{
 	return m_res == _other.m_res && m_indx == _other.m_indx;
 }
 
-const bool MykokoSQL::Row::operator!=(const Row& _other) const noexcept{
+const bool kokos::MykokoSQL::Row::operator!=(const Row& _other) const noexcept{
 	return ! operator==(_other);
 }
 
-const bool MykokoSQL::Row::operator<(const Row& _other) const noexcept{
+const bool kokos::MykokoSQL::Row::operator<(const Row& _other) const noexcept{
 	if(m_res == _other.m_res){
 		return m_indx < _other.m_indx;
 	}
@@ -84,11 +84,11 @@ const bool MykokoSQL::Row::operator<(const Row& _other) const noexcept{
 	return false;
 }
 
-const bool MykokoSQL::Row::operator<=(const Row& _other) const noexcept{
+const bool kokos::MykokoSQL::Row::operator<=(const Row& _other) const noexcept{
 	return operator<(_other) || operator==(_other);
 }
 
-const bool MykokoSQL::Row::operator>(const Row& _other) const noexcept{
+const bool kokos::MykokoSQL::Row::operator>(const Row& _other) const noexcept{
 	if(m_res == _other.m_res){
 		return m_indx > _other.m_indx;
 	}
@@ -96,28 +96,28 @@ const bool MykokoSQL::Row::operator>(const Row& _other) const noexcept{
 	return false;
 }
 
-const bool MykokoSQL::Row::operator>=(const Row& _other) const noexcept{
+const bool kokos::MykokoSQL::Row::operator>=(const Row& _other) const noexcept{
 	return operator>(_other) || operator==(_other);
 }
 
-const MykokoSQL::Row& MykokoSQL::Row::operator*() const noexcept{
+const kokos::MykokoSQL::Row& kokos::MykokoSQL::Row::operator*() const noexcept{
 	return *this;
 }
 
-const MykokoSQL::Row MykokoSQL::Row::operator+(const unsigned long long int& _row_indx) const noexcept{
+const kokos::MykokoSQL::Row kokos::MykokoSQL::Row::operator+(const unsigned long long int& _row_indx) const noexcept{
 	Row next_row = *this;
 	return next_row += _row_indx;
 }
 
-const MykokoSQL::Row& MykokoSQL::Row::operator++() noexcept{
+const kokos::MykokoSQL::Row& kokos::MykokoSQL::Row::operator++() noexcept{
 	return operator+=(1);
 }
 
-const MykokoSQL::Row& MykokoSQL::Row::operator++(int) noexcept{
+const kokos::MykokoSQL::Row& kokos::MykokoSQL::Row::operator++(int) noexcept{
 	return operator++();
 }
 
-const MykokoSQL::Row& MykokoSQL::Row::operator+=(const unsigned long long int& _row_indx) noexcept{
+const kokos::MykokoSQL::Row& kokos::MykokoSQL::Row::operator+=(const unsigned long long int& _row_indx) noexcept{
 	if(m_res){
 		if(m_res->m_mysql_res){
 			if(m_indx + _row_indx < m_res->m_mysql_res->row_count){
@@ -131,20 +131,20 @@ const MykokoSQL::Row& MykokoSQL::Row::operator+=(const unsigned long long int& _
 	return *this;
 }
 
-const MykokoSQL::Row MykokoSQL::Row::operator-(const unsigned long long int& _row_indx) const noexcept{
+const kokos::MykokoSQL::Row kokos::MykokoSQL::Row::operator-(const unsigned long long int& _row_indx) const noexcept{
 	Row prev_row = *this;
 	return prev_row -= _row_indx;
 }
 
-const MykokoSQL::Row& MykokoSQL::Row::operator--() noexcept{
+const kokos::MykokoSQL::Row& kokos::MykokoSQL::Row::operator--() noexcept{
 	return operator-=(1);
 }
 
-const MykokoSQL::Row& MykokoSQL::Row::operator--(int) noexcept{
+const kokos::MykokoSQL::Row& kokos::MykokoSQL::Row::operator--(int) noexcept{
 	return operator--();
 }
 
-const MykokoSQL::Row& MykokoSQL::Row::operator-=(const unsigned long long int& _row_indx) noexcept{
+const kokos::MykokoSQL::Row& kokos::MykokoSQL::Row::operator-=(const unsigned long long int& _row_indx) noexcept{
 	if(m_res){
 		if(m_res->m_mysql_res){
 			if(m_indx >= _row_indx){
@@ -158,6 +158,6 @@ const MykokoSQL::Row& MykokoSQL::Row::operator-=(const unsigned long long int& _
 	return *this;
 }
 
-MykokoSQL::Row::operator const bool() const noexcept{
+kokos::MykokoSQL::Row::operator const bool() const noexcept{
 	return m_res;
 }

@@ -1,6 +1,6 @@
 #include "mykokosql.h"
 
-MykokoSQL::Field::Field(const Result* const _res, const unsigned short& _field_indx) noexcept{
+kokos::MykokoSQL::Field::Field(const Result* const _res, const unsigned short& _field_indx) noexcept{
 	if(_res){
 		if(_res->m_mysql_res){
 			if(_res->m_mysql_res->fields){
@@ -26,9 +26,9 @@ MykokoSQL::Field::Field(const Result* const _res, const unsigned short& _field_i
 	m_db_name = "";
 }
 
-MykokoSQL::Field::Field() noexcept : m_name(""), m_table_name(""), m_db_name(""){}
+kokos::MykokoSQL::Field::Field() noexcept : m_name(""), m_table_name(""), m_db_name(""){}
 
-const char* const MykokoSQL::Field::TypeToString(const Type& _type) noexcept{
+const char* const kokos::MykokoSQL::Field::TypeToString(const Type& _type) noexcept{
 	switch(_type){
 		case MykokoSQL::Field::Type::Invalid:
 		{
@@ -145,7 +145,7 @@ const char* const MykokoSQL::Field::TypeToString(const Type& _type) noexcept{
 	}
 }
 
-const char* const MykokoSQL::Field::GetCharacterSetCollation(const CharacterSet& _char_set) noexcept{
+const char* const kokos::MykokoSQL::Field::GetCharacterSetCollation(const CharacterSet& _char_set) noexcept{
 	switch(_char_set){
 		case MykokoSQL::Field::CharacterSet::Invalid:
 		{
@@ -322,55 +322,55 @@ const char* const MykokoSQL::Field::GetCharacterSetCollation(const CharacterSet&
 	}
 }
 
-const MykokoSQL::Field MykokoSQL::Field::begin() const noexcept{
+const kokos::MykokoSQL::Field kokos::MykokoSQL::Field::begin() const noexcept{
 	return Field(m_res, 0);
 }
 
-const MykokoSQL::Field MykokoSQL::Field::end() const noexcept{
+const kokos::MykokoSQL::Field kokos::MykokoSQL::Field::end() const noexcept{
 	return Field();
 }
 
-const unsigned short MykokoSQL::Field::GetIndex() const noexcept{
+const unsigned short kokos::MykokoSQL::Field::GetIndex() const noexcept{
 	return m_indx;
 }
 
-const MykokoSQL::Field::Type MykokoSQL::Field::GetType() const noexcept{
+const kokos::MykokoSQL::Field::Type kokos::MykokoSQL::Field::GetType() const noexcept{
 	return m_type;
 }
 
-const char* const MykokoSQL::Field::Get() const noexcept{
+const char* const kokos::MykokoSQL::Field::Get() const noexcept{
 	return m_name;
 }
 
-const unsigned short MykokoSQL::Field::Length() const noexcept{
+const unsigned short kokos::MykokoSQL::Field::Length() const noexcept{
 	return m_len;
 }
 
-const char* const MykokoSQL::Field::GetTableName() const noexcept{
+const char* const kokos::MykokoSQL::Field::GetTableName() const noexcept{
 	return m_table_name;
 }
 
-const unsigned short MykokoSQL::Field::GetTableNameLength() const noexcept{
+const unsigned short kokos::MykokoSQL::Field::GetTableNameLength() const noexcept{
 	return m_table_name_len;
 }
 
-const char* const MykokoSQL::Field::GetDatabaseName() const noexcept{
+const char* const kokos::MykokoSQL::Field::GetDatabaseName() const noexcept{
 	return m_db_name;
 }
 
-const unsigned short MykokoSQL::Field::GetDatabaseNameLength() const noexcept{
+const unsigned short kokos::MykokoSQL::Field::GetDatabaseNameLength() const noexcept{
 	return m_db_name_len;
 }
 
-const MykokoSQL::Field::CharacterSet MykokoSQL::Field::GetCharacterSet() const noexcept{
+const kokos::MykokoSQL::Field::CharacterSet kokos::MykokoSQL::Field::GetCharacterSet() const noexcept{
 	return m_char_set;
 }
 
-const bool MykokoSQL::Field::operator!() const noexcept{
+const bool kokos::MykokoSQL::Field::operator!() const noexcept{
 	return ! operator const bool();
 }
 
-const bool MykokoSQL::Field::operator==(const Field& _other) const noexcept{
+const bool kokos::MykokoSQL::Field::operator==(const Field& _other) const noexcept{
 	return
 		m_res == _other.m_res &&
 		m_indx == _other.m_indx &&
@@ -382,11 +382,11 @@ const bool MykokoSQL::Field::operator==(const Field& _other) const noexcept{
 	;
 }
 
-const bool MykokoSQL::Field::operator!=(const Field& _other) const noexcept{
+const bool kokos::MykokoSQL::Field::operator!=(const Field& _other) const noexcept{
 	return ! operator==(_other);
 }
 
-const bool MykokoSQL::Field::operator<(const Field& _other) const noexcept{
+const bool kokos::MykokoSQL::Field::operator<(const Field& _other) const noexcept{
 	if(
 		m_res == _other.m_res &&
 		m_table_name == _other.m_table_name &&
@@ -399,11 +399,11 @@ const bool MykokoSQL::Field::operator<(const Field& _other) const noexcept{
 	return false;
 }
 
-const bool MykokoSQL::Field::operator<=(const Field& _other) const noexcept{
+const bool kokos::MykokoSQL::Field::operator<=(const Field& _other) const noexcept{
 	return operator<(_other) || operator==(_other);
 }
 
-const bool MykokoSQL::Field::operator>(const Field& _other) const noexcept{
+const bool kokos::MykokoSQL::Field::operator>(const Field& _other) const noexcept{
 	if(
 		m_res == _other.m_res &&
 		m_table_name == _other.m_table_name &&
@@ -416,28 +416,28 @@ const bool MykokoSQL::Field::operator>(const Field& _other) const noexcept{
 	return false;
 }
 
-const bool MykokoSQL::Field::operator>=(const Field& _other) const noexcept{
+const bool kokos::MykokoSQL::Field::operator>=(const Field& _other) const noexcept{
 	return operator>(_other) || operator==(_other);
 }
 
-const MykokoSQL::Field& MykokoSQL::Field::operator*() const noexcept{
+const kokos::MykokoSQL::Field& kokos::MykokoSQL::Field::operator*() const noexcept{
 	return *this;
 }
 
-const MykokoSQL::Field MykokoSQL::Field::operator+(const unsigned int& _field_indx) const noexcept{
+const kokos::MykokoSQL::Field kokos::MykokoSQL::Field::operator+(const unsigned int& _field_indx) const noexcept{
 	Field next_field = *this;
 	return next_field += _field_indx;
 }
 
-const MykokoSQL::Field& MykokoSQL::Field::operator++() noexcept{
+const kokos::MykokoSQL::Field& kokos::MykokoSQL::Field::operator++() noexcept{
 	return operator+=(1);
 }
 
-const MykokoSQL::Field& MykokoSQL::Field::operator++(int) noexcept{
+const kokos::MykokoSQL::Field& kokos::MykokoSQL::Field::operator++(int) noexcept{
 	return operator++();
 }
 
-const MykokoSQL::Field& MykokoSQL::Field::operator+=(const unsigned int& _field_indx) noexcept{
+const kokos::MykokoSQL::Field& kokos::MykokoSQL::Field::operator+=(const unsigned int& _field_indx) noexcept{
 	if(m_res){
 		if(m_res->m_mysql_res){
 			if(m_indx + _field_indx < m_res->m_mysql_res->field_count){
@@ -451,20 +451,20 @@ const MykokoSQL::Field& MykokoSQL::Field::operator+=(const unsigned int& _field_
 	return *this;
 }
 
-const MykokoSQL::Field MykokoSQL::Field::operator-(const unsigned int& _field_indx) const noexcept{
+const kokos::MykokoSQL::Field kokos::MykokoSQL::Field::operator-(const unsigned int& _field_indx) const noexcept{
 	Field prev_field = *this;
 	return prev_field -= _field_indx;
 }
 
-const MykokoSQL::Field& MykokoSQL::Field::operator--() noexcept{
+const kokos::MykokoSQL::Field& kokos::MykokoSQL::Field::operator--() noexcept{
 	return operator-=(1);
 }
 
-const MykokoSQL::Field& MykokoSQL::Field::operator--(int) noexcept{
+const kokos::MykokoSQL::Field& kokos::MykokoSQL::Field::operator--(int) noexcept{
 	return operator--();
 }
 
-const MykokoSQL::Field& MykokoSQL::Field::operator-=(const unsigned int& _field_indx) noexcept{
+const kokos::MykokoSQL::Field& kokos::MykokoSQL::Field::operator-=(const unsigned int& _field_indx) noexcept{
 	if(m_res){
 		if(m_indx >= _field_indx){
 			return *this = Field(m_res, m_indx - _field_indx);
@@ -476,6 +476,6 @@ const MykokoSQL::Field& MykokoSQL::Field::operator-=(const unsigned int& _field_
 	return *this;
 }
 
-MykokoSQL::Field::operator const bool() const noexcept{
+kokos::MykokoSQL::Field::operator const bool() const noexcept{
 	return m_res && m_type != Type::Invalid && m_name && m_len && m_char_set != CharacterSet::Invalid;
 }

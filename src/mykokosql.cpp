@@ -1,14 +1,14 @@
 #include "mykokosql.h"
 
-MykokoSQL::MykokoSQL() noexcept{
+kokos::MykokoSQL::MykokoSQL() noexcept{
 	Init();
 }
 
-MykokoSQL::~MykokoSQL() noexcept{
+kokos::MykokoSQL::~MykokoSQL() noexcept{
 	Close();
 }
 
-const bool MykokoSQL::__CaseInsensitiveComparison(const char& _ch1, const char& _ch2) noexcept{
+const bool kokos::MykokoSQL::__CaseInsensitiveComparison(const char& _ch1, const char& _ch2) noexcept{
 	if(_ch1 == _ch2){
 		return true;
 	}
@@ -19,7 +19,7 @@ const bool MykokoSQL::__CaseInsensitiveComparison(const char& _ch1, const char& 
 	return false;
 }
 
-const bool MykokoSQL::Init() noexcept{
+const bool kokos::MykokoSQL::Init() noexcept{
 	if(! m_db){
 		m_db = mysql_init(nullptr);
 	}
@@ -27,14 +27,14 @@ const bool MykokoSQL::Init() noexcept{
 	return m_db;
 }
 
-void MykokoSQL::Close() noexcept{
+void kokos::MykokoSQL::Close() noexcept{
 	if(m_db){
 		mysql_close(m_db);
 		m_db = nullptr;
 	}
 }
 
-const bool MykokoSQL::Connect(
+const bool kokos::MykokoSQL::Connect(
 	const char* const _host,
 	const char* const _user,
 	const char* const _password,
@@ -48,7 +48,7 @@ const bool MykokoSQL::Connect(
 	return false;
 }
 
-const MykokoSQL::Result MykokoSQL::Execute(const char* const _query) const noexcept{
+const kokos::MykokoSQL::Result kokos::MykokoSQL::Execute(const char* const _query) const noexcept{
 	if(_query){
 		return Execute(_query, static_cast<unsigned int>(strlen(_query)));
 	}
@@ -56,7 +56,7 @@ const MykokoSQL::Result MykokoSQL::Execute(const char* const _query) const noexc
 	return Result();
 }
 
-const MykokoSQL::Result MykokoSQL::Execute(const char* const _query, const unsigned long int& _len) const noexcept{
+const kokos::MykokoSQL::Result kokos::MykokoSQL::Execute(const char* const _query, const unsigned long int& _len) const noexcept{
 	if(m_db){
 		if(_query){
 			if(! mysql_real_query(m_db, _query, _len)){
@@ -68,7 +68,7 @@ const MykokoSQL::Result MykokoSQL::Execute(const char* const _query, const unsig
 	return Result();
 }
 
-const MykokoSQL::Result MykokoSQL::GetFields(const char* const _table) const noexcept{
+const kokos::MykokoSQL::Result kokos::MykokoSQL::GetFields(const char* const _table) const noexcept{
 	const unsigned int table_len = static_cast<unsigned int>(strnlen_s(_table, 256));
 	if(table_len != 256){
 		char GET_FIELDS_QUERY[18 + 256 + 1] = {
@@ -85,7 +85,7 @@ const MykokoSQL::Result MykokoSQL::GetFields(const char* const _table) const noe
 	return Result();
 }
 
-const unsigned short MykokoSQL::GetLastErrorCode() const noexcept{
+const unsigned short kokos::MykokoSQL::GetLastErrorCode() const noexcept{
 	if(m_db){
 		return mysql_errno(m_db);
 	}
@@ -93,7 +93,7 @@ const unsigned short MykokoSQL::GetLastErrorCode() const noexcept{
 	return 0;
 }
 
-const char* const MykokoSQL::GetLastErrorMessage() const noexcept{
+const char* const kokos::MykokoSQL::GetLastErrorMessage() const noexcept{
 	if(m_db){
 		return mysql_error(m_db);
 	}
@@ -101,6 +101,6 @@ const char* const MykokoSQL::GetLastErrorMessage() const noexcept{
 	return "";
 }
 
-MykokoSQL::operator const bool() const noexcept{
+kokos::MykokoSQL::operator const bool() const noexcept{
 	return m_db;
 }

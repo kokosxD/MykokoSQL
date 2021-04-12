@@ -1,6 +1,6 @@
 #include "mykokosql.h"
 
-MykokoSQL::Column::Column(const Row* const _row, const unsigned short& _col_indx) noexcept{
+kokos::MykokoSQL::Column::Column(const Row* const _row, const unsigned short& _col_indx) noexcept{
 	if(_row){
 		if(_row->m_res){
 			if(_row->m_res->m_mysql_res){
@@ -47,21 +47,21 @@ MykokoSQL::Column::Column(const Row* const _row, const unsigned short& _col_indx
 	m_bytes = "";
 }
 
-MykokoSQL::Column::Column() noexcept : m_bytes(""){}
+kokos::MykokoSQL::Column::Column() noexcept : m_bytes(""){}
 
-const unsigned short MykokoSQL::Column::GetIndex() const noexcept{
+const unsigned short kokos::MykokoSQL::Column::GetIndex() const noexcept{
 	return m_indx;
 }
 
-const char* const MykokoSQL::Column::Get() const noexcept{
+const char* const kokos::MykokoSQL::Column::Get() const noexcept{
 	return m_bytes;
 }
 
-const unsigned short MykokoSQL::Column::Length() const noexcept{
+const unsigned short kokos::MykokoSQL::Column::Length() const noexcept{
 	return m_len;
 }
 
-const MykokoSQL::Field MykokoSQL::Column::GetField() const noexcept{
+const kokos::MykokoSQL::Field kokos::MykokoSQL::Column::GetField() const noexcept{
 	if(m_row){
 		if(m_row->m_res){
 			if(m_row->m_res->m_mysql_res){
@@ -73,11 +73,11 @@ const MykokoSQL::Field MykokoSQL::Column::GetField() const noexcept{
 	return Field();
 }
 
-const bool MykokoSQL::Column::IsNull() const noexcept{
+const bool kokos::MykokoSQL::Column::IsNull() const noexcept{
 	return m_bytes == "" && ! m_len;
 }
 
-const unsigned char MykokoSQL::Column::operator[](const unsigned short& _byte_indx) const noexcept{
+const unsigned char kokos::MykokoSQL::Column::operator[](const unsigned short& _byte_indx) const noexcept{
 	if(m_bytes){
 		if(_byte_indx <= m_len){
 			return m_bytes[_byte_indx];
@@ -87,10 +87,10 @@ const unsigned char MykokoSQL::Column::operator[](const unsigned short& _byte_in
 	return static_cast<char>(0x00);
 }
 
-MykokoSQL::Column::operator const char* const() const noexcept{
+kokos::MykokoSQL::Column::operator const char* const() const noexcept{
 	return m_bytes;
 }
 
-MykokoSQL::Column::operator const bool() const noexcept{
+kokos::MykokoSQL::Column::operator const bool() const noexcept{
 	return m_row && m_bytes;
 }

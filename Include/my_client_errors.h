@@ -1,227 +1,230 @@
 #pragma once
 
-// Enumerator used to represent a MySQL client error
-enum class ClientError : unsigned short{
+namespace kokos{
 
-	// The first implemented client error
-	FirstError = 0x07D0,
+	// Enumerator used to represent a MySQL client error
+	enum class ClientError : unsigned short{
 
-	// Invalid client error
-	Invalid = 0xFFFF,
+		// The first implemented client error
+		FirstError = 0x07D0,
 
-	// Unknown error
-	Unknown = 0x07D0,
+		// Invalid client error
+		Invalid = 0xFFFF,
 
-	// Can't create socket
-	SocketCreate = 0x07D1,
+		// Unknown error
+		Unknown = 0x07D0,
 
-	// Can't connect to local MySQL server through socket
-	SocketConnect = 0x07D2,
+		// Can't create socket
+		SocketCreate = 0x07D1,
 
-	// Can't connect to MySQL server
-	HostConnect = 0x07D3,
+		// Can't connect to local MySQL server through socket
+		SocketConnect = 0x07D2,
 
-	// Can't create TCP/IP socket
-	IPSocketCreate = 0x07D4,
+		// Can't connect to MySQL server
+		HostConnect = 0x07D3,
 
-	// Unknown MySQL server host
-	UnknownHost = 0x07D5,
+		// Can't create TCP/IP socket
+		IPSocketCreate = 0x07D4,
 
-	// MySQL server has gone away
-	ServerGone = 0x07D6,
+		// Unknown MySQL server host
+		UnknownHost = 0x07D5,
 
-	// Protocol mismatch
-	ProtocolMismatch = 0x07D7,
+		// MySQL server has gone away
+		ServerGone = 0x07D6,
 
-	// MySQL client ran out of memory
-	OutOfMemory = 0x07D8,
+		// Protocol mismatch
+		ProtocolMismatch = 0x07D7,
 
-	// Wrong host info
-	WrongHostInfo = 0x07D9,
+		// MySQL client ran out of memory
+		OutOfMemory = 0x07D8,
 
-	// Localhost via UNIX socket
-	LocalHostConnection = 0x07DA,
+		// Wrong host info
+		WrongHostInfo = 0x07D9,
 
-	// Connection via TCP/IP
-	TCPConnection = 0x07DB,
+		// Localhost via UNIX socket
+		LocalHostConnection = 0x07DA,
 
-	// Error in server handshake
-	ServerHandshake = 0x07DC,
+		// Connection via TCP/IP
+		TCPConnection = 0x07DB,
 
-	// Lost connection to MySQL server during query
-	ServerLostConnection = 0x07DD,
+		// Error in server handshake
+		ServerHandshake = 0x07DC,
 
-	// Commands out of sync, you can't run this command now
-	CommandsOutOfSync = 0x07DE,
+		// Lost connection to MySQL server during query
+		ServerLostConnection = 0x07DD,
 
-	// Named pipe
-	NamedPipeConnection = 0x07DF,
+		// Commands out of sync, you can't run this command now
+		CommandsOutOfSync = 0x07DE,
 
-	// Can't wait for named pipe to host
-	NamedPipeWait = 0x07E0,
+		// Named pipe
+		NamedPipeConnection = 0x07DF,
 
-	// Can't open named pipe to host
-	NamedPipeOpen = 0x07E1,
+		// Can't wait for named pipe to host
+		NamedPipeWait = 0x07E0,
 
-	// Can't set state of named pipe to host
-	NamedPipeSetState = 0x07E2,
+		// Can't open named pipe to host
+		NamedPipeOpen = 0x07E1,
 
-	// Can't initialize character set
-	InitializeCharacterSet = 0x07E3,
+		// Can't set state of named pipe to host
+		NamedPipeSetState = 0x07E2,
 
-	// Got packet bigger than 'max_allowed_packet' bytes
-	PacketTooLarge = 0x07E4,
+		// Can't initialize character set
+		InitializeCharacterSet = 0x07E3,
 
-	// Embedded server
-	EmbeddedServer = 0x07E5,
+		// Got packet bigger than 'max_allowed_packet' bytes
+		PacketTooLarge = 0x07E4,
 
-	// Error on SHOW SLAVE STATUS
-	ShowSlaveStatus = 0x07E6,
+		// Embedded server
+		EmbeddedServer = 0x07E5,
 
-	// Error on SHOW SLAVE HOSTS
-	ShowSlaveHosts = 0x07E7,
+		// Error on SHOW SLAVE STATUS
+		ShowSlaveStatus = 0x07E6,
 
-	// Error connecting to slave
-	SlaveConnect = 0x07E8,
+		// Error on SHOW SLAVE HOSTS
+		ShowSlaveHosts = 0x07E7,
 
-	// Error connecting to master
-	MasterConnect = 0x07E9,
+		// Error connecting to slave
+		SlaveConnect = 0x07E8,
 
-	// SSL connection error
-	SSLConnection = 0x07EA,
+		// Error connecting to master
+		MasterConnect = 0x07E9,
 
-	// Malformed packet
-	MalformedPacket = 0x07EB,
+		// SSL connection error
+		SSLConnection = 0x07EA,
 
-	// This client library is licensed for MySQL servers with different license
-	WrongLicense = 0x07EC,
+		// Malformed packet
+		MalformedPacket = 0x07EB,
 
-	// Invalid use of null pointer
-	NullPointer = 0x07ED,
+		// This client library is licensed for MySQL servers with different license
+		WrongLicense = 0x07EC,
 
-	// Statement not prepared
-	NoPreparedStatement = 0x07EE,
+		// Invalid use of null pointer
+		NullPointer = 0x07ED,
 
-	// No data supplied for parameters in prepared statement
-	NoPreparedStatementData = 0x07EF,
+		// Statement not prepared
+		NoPreparedStatement = 0x07EE,
 
-	// Data truncated
-	DataTruncated = 0x07F0,
+		// No data supplied for parameters in prepared statement
+		NoPreparedStatementData = 0x07EF,
 
-	// No parameters exist in the statement
-	NoStatementParameters = 0x07F1,
+		// Data truncated
+		DataTruncated = 0x07F0,
 
-	// Invalid parameter number
-	InvalidParameterNumber = 0x07F2,
+		// No parameters exist in the statement
+		NoStatementParameters = 0x07F1,
 
-	// Can't send long data for non-string/non-binary data types
-	BufferTooLong = 0x07F3,
+		// Invalid parameter number
+		InvalidParameterNumber = 0x07F2,
 
-	// Using unsupported buffer type
-	UnsupportedBufferType = 0x07F4,
+		// Can't send long data for non-string/non-binary data types
+		BufferTooLong = 0x07F3,
 
-	// Shared memory
-	SharedMemoryConnection = 0x07F5,
+		// Using unsupported buffer type
+		UnsupportedBufferType = 0x07F4,
 
-	// Can't open shared memory, client could not create request event
-	SharedMemoryClientRequestEvent = 0x07F6,
+		// Shared memory
+		SharedMemoryConnection = 0x07F5,
 
-	// Can't open shared memory, no answer event received from server
-	SharedMemoryServerNoAnswerEvent = 0x07F7,
+		// Can't open shared memory, client could not create request event
+		SharedMemoryClientRequestEvent = 0x07F6,
 
-	// Can't open shared memory, server could not allocate file mapping
-	SharedMemoryServerFileMappingAllocate = 0x07F8,
+		// Can't open shared memory, no answer event received from server
+		SharedMemoryServerNoAnswerEvent = 0x07F7,
 
-	// Can't open shared memory, server could not get pointer to file mapping
-	SharedMemoryServerFileMappingPointer = 0x07F9,
+		// Can't open shared memory, server could not allocate file mapping
+		SharedMemoryServerFileMappingAllocate = 0x07F8,
 
-	// Can't open shared memory, client could not allocate file mapping
-	SharedMemoryClientFileMappingAllocate = 0x07FA,
+		// Can't open shared memory, server could not get pointer to file mapping
+		SharedMemoryServerFileMappingPointer = 0x07F9,
 
-	// Can't open shared memory, client could not get pointer to file mapping
-	SharedMemoryClientFileMappingPointer = 0x07FB,
+		// Can't open shared memory, client could not allocate file mapping
+		SharedMemoryClientFileMappingAllocate = 0x07FA,
 
-	// Can't open shared memory, client could not create event
-	SharedMemoryClientCreateEvent = 0x07FC,
+		// Can't open shared memory, client could not get pointer to file mapping
+		SharedMemoryClientFileMappingPointer = 0x07FB,
 
-	// Can't open shared memory, no answer received from server
-	SharedMemoryServerNoAnswer = 0x07FD,
+		// Can't open shared memory, client could not create event
+		SharedMemoryClientCreateEvent = 0x07FC,
 
-	// Can't open shared memory, cannot send request event to server
-	SharedMemoryRequestEvent = 0x07FE,
+		// Can't open shared memory, no answer received from server
+		SharedMemoryServerNoAnswer = 0x07FD,
 
-	// Wrong or unknown protocol
-	UnknownProtocol = 0x07FF,
+		// Can't open shared memory, cannot send request event to server
+		SharedMemoryRequestEvent = 0x07FE,
 
-	// Invalid connection handle
-	InvalidConnectionHandle = 0x0800,
+		// Wrong or unknown protocol
+		UnknownProtocol = 0x07FF,
 
-	// Connection using old (pre-4.1.1) authentication protocol refused (client option 'secure_auth' enabled)
-	OldAuthenticationProtocol = 0x0801,
+		// Invalid connection handle
+		InvalidConnectionHandle = 0x0800,
 
-	// Row retrieval was canceled by mysql_stmt_close() call
-	FetchCanceled = 0x0802,
+		// Connection using old (pre-4.1.1) authentication protocol refused (client option 'secure_auth' enabled)
+		OldAuthenticationProtocol = 0x0801,
 
-	// Attempt to read column without prior row fetch
-	NoFetchedRow = 0x0803,
+		// Row retrieval was canceled by mysql_stmt_close() call
+		FetchCanceled = 0x0802,
 
-	// Prepared statement contains no metadata
-	NoPreparedStatementMetadata = 0x0804,
+		// Attempt to read column without prior row fetch
+		NoFetchedRow = 0x0803,
 
-	// Attempt to read a row while there is no result set associated with the statement
-	NoResult = 0x0805,
+		// Prepared statement contains no metadata
+		NoPreparedStatementMetadata = 0x0804,
 
-	// This feature is not implemented yet
-	NoImplemented = 0x0806,
+		// Attempt to read a row while there is no result set associated with the statement
+		NoResult = 0x0805,
 
-	// Lost connection to MySQL server
-	ServerLostConnectionExtended = 0x0807,
+		// This feature is not implemented yet
+		NoImplemented = 0x0806,
 
-	// Statement closed indirectly because of a preceding call
-	StatementClosed = 0x0808,
+		// Lost connection to MySQL server
+		ServerLostConnectionExtended = 0x0807,
 
-	// The number of columns in the result set differs from the number of bound buffers. You must reset the statement, rebind the result set columns, and execute the statement again
-	NewStatementMetadata = 0x0809,
+		// Statement closed indirectly because of a preceding call
+		StatementClosed = 0x0808,
 
-	// This handle is already connected. Use a separate handle for each connection
-	AlreadyConnected = 0x080A,
+		// The number of columns in the result set differs from the number of bound buffers. You must reset the statement, rebind the result set columns, and execute the statement again
+		NewStatementMetadata = 0x0809,
 
-	// Authentication plugin cannot be loaded
-	AuthenticationPluginCannotLoad = 0x080B,
+		// This handle is already connected. Use a separate handle for each connection
+		AlreadyConnected = 0x080A,
 
-	// There is an attribute with the same name already
-	DuplicatedConnectionAttribute = 0x080C,
+		// Authentication plugin cannot be loaded
+		AuthenticationPluginCannotLoad = 0x080B,
 
-	// Authentication plugin reported error
-	AuthenticationPlugin = 0x080D,
+		// There is an attribute with the same name already
+		DuplicatedConnectionAttribute = 0x080C,
 
-	// Insecure API function call
-	InsecureAPICall = 0x080E,
+		// Authentication plugin reported error
+		AuthenticationPlugin = 0x080D,
 
-	// File name is too long
-	FileNameTooLong = 0x080F,
+		// Insecure API function call
+		InsecureAPICall = 0x080E,
 
-	// Set FIPS mode ON/STRICT failed
-	SSLFIPSMode = 0x0810,
+		// File name is too long
+		FileNameTooLong = 0x080F,
 
-	// Compression protocol not supported with asynchronous protocol
-	CompressionProtocolNotSupported = 0x0811,
+		// Set FIPS mode ON/STRICT failed
+		SSLFIPSMode = 0x0810,
 
-	// Connection failed due to wrongly configured compression algorithm
-	CompressionWronglyConfigured = 0x0812,
+		// Compression protocol not supported with asynchronous protocol
+		CompressionProtocolNotSupported = 0x0811,
 
-	// SSO user not found, please perform SSO authentication using kerberos
-	KerberosUserNotFound = 0x0813,
+		// Connection failed due to wrongly configured compression algorithm
+		CompressionWronglyConfigured = 0x0812,
 
-	// File request rejected due to restrictions on access
-	LoadFileRejected = 0x0814,
+		// SSO user not found, please perform SSO authentication using kerberos
+		KerberosUserNotFound = 0x0813,
 
-	// Failed to determinate real path
-	LoadRealPathFailed = 0x0815,
+		// File request rejected due to restrictions on access
+		LoadFileRejected = 0x0814,
 
-	// DNS SRV lookup failed
-	DNSSRVLookupFailed = 0x0816,
+		// Failed to determinate real path
+		LoadRealPathFailed = 0x0815,
 
-	// The last implemented client error
-	LastError = 0x0816
-};
+		// DNS SRV lookup failed
+		DNSSRVLookupFailed = 0x0816,
+
+		// The last implemented client error
+		LastError = 0x0816
+	};
+}
