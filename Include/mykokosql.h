@@ -4,7 +4,10 @@
 #include "mysql.h"
 
 // Usually located in "C:\Program Files\MySQL\MySQL Server 8.0\lib"
-#pragma comment(lib, "libmysql.lib")
+#if ! defined(MYSQL_LIB_PATH)
+#define MYSQL_LIB_PATH "libmysql.lib"
+#endif
+#pragma comment(lib, MYSQL_LIB_PATH)
 
 namespace kokos{
 
