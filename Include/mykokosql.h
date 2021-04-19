@@ -1,7 +1,10 @@
 #pragma once
 
 // Usually located in "C:\Program Files\MySQL\MySQL Server 8.0\include"
-#include "mysql.h"
+#if ! defined(MYSQL_INCLUDE_PATH)
+#define MYSQL_INCLUDE_PATH "mysql.h"
+#endif
+#include MYSQL_INCLUDE_PATH
 
 // Usually located in "C:\Program Files\MySQL\MySQL Server 8.0\lib"
 #if ! defined(MYSQL_LIB_PATH)
